@@ -68,5 +68,41 @@ namespace StockS.API.Forms
             Form form = new frmRole();
             form.ShowDialog();
         }
+
+        private void btnReceipt_Click(object sender, EventArgs e)
+        {
+            Form form = new frmReceipt();
+            form.ShowDialog();
+        }
+
+        private void btnWriteOff_Click(object sender, EventArgs e)
+        {
+            Form form = new frmWriteOff();
+            form.ShowDialog();
+        }
+
+        private void btnInve_Click(object sender, EventArgs e)
+        {
+            Form form = new frmInventory();
+            form.ShowDialog();
+        }
+
+        private void btnShifts_Click(object sender, EventArgs e)
+        {
+            Form form = new frmShift();
+            form.ShowDialog();
+        }
+
+        private void btnConclusion_Click(object sender, EventArgs e)
+        {
+            Form form = new frmConclusion();
+            form.ShowDialog();
+        }
+
+        private void btnAccess_Click(object sender, EventArgs e)
+        {
+            Form form = new frmAccess();
+            form.ShowDialog();
+        }
     }
 }

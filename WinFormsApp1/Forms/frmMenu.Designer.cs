@@ -130,6 +130,7 @@
             btnAccess.TabIndex = 8;
             btnAccess.Text = "Edit function access";
             btnAccess.UseVisualStyleBackColor = true;
+            btnAccess.Click += btnAccess_Click;
             // 
             // btnWriteOff
             // 
@@ -139,6 +140,7 @@
             btnWriteOff.TabIndex = 9;
             btnWriteOff.Text = "Write off";
             btnWriteOff.UseVisualStyleBackColor = true;
+            btnWriteOff.Click += btnWriteOff_Click;
             // 
             // btnReceipt
             // 
@@ -148,6 +150,7 @@
             btnReceipt.TabIndex = 10;
             btnReceipt.Text = "Receipt";
             btnReceipt.UseVisualStyleBackColor = true;
+            btnReceipt.Click += btnReceipt_Click;
             // 
             // btnConclusion
             // 
@@ -157,6 +160,7 @@
             btnConclusion.TabIndex = 11;
             btnConclusion.Text = "Conclusion";
             btnConclusion.UseVisualStyleBackColor = true;
+            btnConclusion.Click += btnConclusion_Click;
             // 
             // btnInve
             // 
@@ -166,6 +170,7 @@
             btnInve.TabIndex = 12;
             btnInve.Text = "Inventory";
             btnInve.UseVisualStyleBackColor = true;
+            btnInve.Click += btnInve_Click;
             // 
             // btnShifts
             // 
@@ -175,6 +180,7 @@
             btnShifts.TabIndex = 13;
             btnShifts.Text = "Shift";
             btnShifts.UseVisualStyleBackColor = true;
+            btnShifts.Click += btnShifts_Click;
             // 
             // frmMenu
             // 
