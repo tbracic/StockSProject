@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockS.Logic", "StockS.Logick\StockS.Logic.csproj", "{726459AB-8E87-4167-AD14-5FB05C4789C3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockS.API", "WinFormsApp1\StockS.API.csproj", "{847D94AB-24A5-4782-9061-47BF87952414}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{726459AB-8E87-4167-AD14-5FB05C4789C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{726459AB-8E87-4167-AD14-5FB05C4789C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{726459AB-8E87-4167-AD14-5FB05C4789C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{726459AB-8E87-4167-AD14-5FB05C4789C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{847D94AB-24A5-4782-9061-47BF87952414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{847D94AB-24A5-4782-9061-47BF87952414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{847D94AB-24A5-4782-9061-47BF87952414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{847D94AB-24A5-4782-9061-47BF87952414}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {09A92302-2884-451D-B6BD-791CE03D7353}
+	EndGlobalSection
+EndGlobal
