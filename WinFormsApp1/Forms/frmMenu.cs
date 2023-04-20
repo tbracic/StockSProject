@@ -71,19 +71,19 @@ namespace StockS.API.Forms
 
         private void btnReceipt_Click(object sender, EventArgs e)
         {
-            Form form = new frmReceipt();
+            Form form = new frmReceipt(curentUser);
             form.ShowDialog();
         }
 
         private void btnWriteOff_Click(object sender, EventArgs e)
         {
-            Form form = new frmWriteOff();
+            Form form = new frmWriteOff(curentUser);
             form.ShowDialog();
         }
 
         private void btnInve_Click(object sender, EventArgs e)
         {
-            Form form = new frmInventory();
+            Form form = new frmInventory(curentUser);
             form.ShowDialog();
         }
 
@@ -95,7 +95,7 @@ namespace StockS.API.Forms
 
         private void btnConclusion_Click(object sender, EventArgs e)
         {
-            Form form = new frmConclusion();
+            Form form = new frmConclusion(curentUser);
             form.ShowDialog();
         }
 

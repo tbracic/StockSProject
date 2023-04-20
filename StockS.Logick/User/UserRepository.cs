@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.ComponentModel;
+using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Security.Cryptography;
@@ -150,6 +151,37 @@ namespace StockS.Logic.User
         {
             AppDatabase instance = new AppDatabase(patha);
             string sql = $"INSERT INTO [Role] VALUES ('{id}','{title}');";
+            instance.Open();
+            string msg = instance.InsertData(sql);
+            instance.Close();
+            return msg;
+        }
+
+        public List<Shift> GetAllShifts()
+        {
+            Shift shift;
+            List<Shift> list = new List<Shift>();
+            string sql = "SELECT* FROM [Shift]";
+            AppDatabase instance = new AppDatabase(patha);
+            instance.Open();
+            SQLiteDataReader reader = instance.GetData(sql);
+            while (reader.Read())
+            {
+                int id = reader.GetInt32(0);
+                string start = reader.GetString(1);
+                string end = reader.GetString(2);
+                shift = new Shift(id, start, end);
+                list.Add(shift);
+            }
+            reader.Close();
+            instance.Close();
+            return list;
+        }
+
+        public string AddShift(int id, string start, string end)
+        {
+            AppDatabase instance = new AppDatabase(patha);
+            string sql = $"INSERT INTO [Shift] VALUES ('{id}','{start}','{end}');";
             instance.Open();
             string msg = instance.InsertData(sql);
             instance.Close();

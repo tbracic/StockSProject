@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StockS.Logic.User;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace StockS.API.Forms
 {
     public partial class frmConclusion : Form
     {
-        public frmConclusion()
+        public frmConclusion(User user)
         {
             InitializeComponent();
         }

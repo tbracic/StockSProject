@@ -12,6 +12,7 @@ namespace StockS.Logic.Items
     public class ItemRepositroy
     {
         string patha = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "db.db");
+
         public List<Item> GetAllItems()
         {
             Item item = new Item(0, null, 0, 0, 0, 0);
@@ -89,6 +90,31 @@ namespace StockS.Logic.Items
             instance.Open();
             msg += instance.InsertData(sql1) + "  ";
             msg += instance.InsertData(sql2);
+            instance.Close();
+            return msg;
+        }
+
+        public int GetItemQuantity(int item)
+        {
+            int result =-1;
+            string sql = $"SELECT [Quantity] FROM [Item] WHERE [ItemID] = '{item}';";
+            AppDatabase instance = new AppDatabase(patha);
+            instance.Open();
+            SQLiteDataReader reader = instance.GetData(sql);
+            while (reader.Read())
+            {
+                result = reader.GetInt32(0);
+            }
+            return result;
+        }
+
+        public string ChangeQuanitity(int id, int quantity)
+        {
+            string msg = "";
+            string sql = $"UPDATE [Item] SET [Quantity] = '{quantity}' WHERE [ItemID]='{id}';";
+            AppDatabase instance = new AppDatabase(patha);
+            instance.Open();
+            msg += instance.InsertData(sql);
             instance.Close();
             return msg;
         }
