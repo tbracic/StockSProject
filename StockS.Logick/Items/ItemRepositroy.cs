@@ -46,7 +46,7 @@ namespace StockS.Logic.Items
             SQLiteDataReader dataReader = instance.GetData(sql);
             while (dataReader.Read())
             {
-                long id = dataReader.GetInt32(0);
+                long id = dataReader.GetInt64(0);
                 string name = dataReader.GetString(1);
                 string adress = dataReader.GetString(2);
                 string telephon = dataReader.GetString(3);
