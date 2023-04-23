@@ -1,4 +1,4 @@
-﻿namespace StockS.Logic
+﻿namespace StockS.Logic.Conclusion
 {
     public class Shift
     {

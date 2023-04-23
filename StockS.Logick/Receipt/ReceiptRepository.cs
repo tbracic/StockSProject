@@ -10,13 +10,15 @@ namespace StockS.Logic.Receipt
     public class ReceiptRepository
     {
         string patha = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "db.db");
-        public string AddBoughtItem(int item,int receipt,int quantity, float price)
+        public string AddBoughtItem(int item,int receipt,int quantity, float price,float oldQuantity)
         {
 
             string sql = $"INSERT INTO [BoughtItem] VALUES ('{item}','{receipt}','{quantity}','{price}');";
             AppDatabase instance = new AppDatabase(patha);
+            string sql2 = $"UPDATE [Item] SET [Quantity]='{quantity+oldQuantity}' WHERE [ItemID]='{item}';";
             instance.Open();
             string msg = instance.InsertData(sql);
+            msg += instance.InsertData(sql2);
             instance.Close();
             return msg;
         }

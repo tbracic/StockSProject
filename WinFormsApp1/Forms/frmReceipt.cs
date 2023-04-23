@@ -66,17 +66,21 @@ namespace StockS.API.Forms
             long userOIB = current.OIB;
             DateTime now = DateTime.Now;
             string msg = repo1.AddReceipt(no, companyID, userOIB, now);
-            foreach(DataGridViewRow row in dgvBoughtItems.Rows) 
+            float quantity = 0;
+            foreach (DataGridViewRow row in dgvBoughtItems.Rows)
             {
+                if (!row.IsNewRow) { 
                 foreach (Item item in items)
                 {
                     // tu izbacuje compile error
-                    if (item.Name == row.Cells[0].Value.ToString()) { idItem = item.IdItem; };
+                    if (item.Name == row.Cells[0].Value.ToString()) { idItem = item.IdItem; quantity = item.Quantity; };
+                        
                 }
-
-                msg += repo1.AddBoughtItem(idItem, no, int.Parse(row.Cells[1].Value.ToString()), float.Parse(row.Cells[2].Value.ToString()));
+                msg += repo1.AddBoughtItem(idItem, no, int.Parse(row.Cells[1].Value.ToString()), float.Parse(row.Cells[2].Value.ToString()), quantity);
+            }
             }
             MessageBox.Show(msg);
+            Close();
         }
     }
 }

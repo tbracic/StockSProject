@@ -4,6 +4,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Xml.Linq;
+using StockS.Logic.Conclusion;
 
 namespace StockS.Logic.User
 {
