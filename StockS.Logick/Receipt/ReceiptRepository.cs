@@ -24,7 +24,7 @@ namespace StockS.Logic.Receipt
         }
         public string AddReceipt(int no, long companyID, long userOIB, DateTime now)
         {
-            string sql = $"INSERT INTO [Receipt] VALUES('{no}','{companyID}','{userOIB}','{now}')";
+            string sql = $"INSERT INTO [Receipt] VALUES('{no}','{companyID}','{userOIB}','{now}');";
             AppDatabase instance = new AppDatabase(patha);
             instance.Open();
             string msg = instance.InsertData(sql);

@@ -30,10 +30,12 @@
         {
             dTPdate = new DateTimePicker();
             cBoxShift = new ComboBox();
-            dataGridView1 = new DataGridView();
+            dgvSoldItems = new DataGridView();
             btnClose = new Button();
             btnCommit = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            colItem = new DataGridViewComboBoxColumn();
+            colQuantity = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)dgvSoldItems).BeginInit();
             SuspendLayout();
             // 
             // dTPdate
@@ -42,6 +44,7 @@
             dTPdate.Name = "dTPdate";
             dTPdate.Size = new Size(200, 23);
             dTPdate.TabIndex = 0;
+            dTPdate.Value = new DateTime(2023, 4, 24, 11, 19, 9, 0);
             // 
             // cBoxShift
             // 
@@ -51,14 +54,15 @@
             cBoxShift.Size = new Size(77, 23);
             cBoxShift.TabIndex = 1;
             // 
-            // dataGridView1
+            // dgvSoldItems
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 41);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(421, 351);
-            dataGridView1.TabIndex = 2;
+            dgvSoldItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSoldItems.Columns.AddRange(new DataGridViewColumn[] { colItem, colQuantity });
+            dgvSoldItems.Location = new Point(12, 41);
+            dgvSoldItems.Name = "dgvSoldItems";
+            dgvSoldItems.RowTemplate.Height = 25;
+            dgvSoldItems.Size = new Size(421, 351);
+            dgvSoldItems.TabIndex = 2;
             // 
             // btnClose
             // 
@@ -78,6 +82,17 @@
             btnCommit.TabIndex = 4;
             btnCommit.Text = "Commit";
             btnCommit.UseVisualStyleBackColor = true;
+            btnCommit.Click += btnCommit_Click;
+            // 
+            // colItem
+            // 
+            colItem.HeaderText = "Item";
+            colItem.Name = "colItem";
+            // 
+            // colQuantity
+            // 
+            colQuantity.HeaderText = "Quantity";
+            colQuantity.Name = "colQuantity";
             // 
             // frmConclusion
             // 
@@ -86,12 +101,12 @@
             ClientSize = new Size(528, 467);
             Controls.Add(btnCommit);
             Controls.Add(btnClose);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvSoldItems);
             Controls.Add(cBoxShift);
             Controls.Add(dTPdate);
             Name = "frmConclusion";
             Text = "frmConclusion";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSoldItems).EndInit();
             ResumeLayout(false);
         }
 
@@ -99,8 +114,10 @@
 
         private DateTimePicker dTPdate;
         private ComboBox cBoxShift;
-        private DataGridView dataGridView1;
+        private DataGridView dgvSoldItems;
         private Button btnClose;
         private Button btnCommit;
+        private DataGridViewComboBoxColumn colItem;
+        private DataGridViewTextBoxColumn colQuantity;
     }
 }

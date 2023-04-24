@@ -58,7 +58,27 @@ namespace StockS.Logic.Items
             instance.Close();
             return companies;
         }
+        public List<string> GetAllItemNames()
+        {
+            List<Item> items =GetAllItems();
+            List<string> result = new List<string>();
+            foreach (Item item in items) { result.Add(item.Name); }
+            return result;
+        }
 
+        public int GetItemID(string name)
+        {
+            int id = 0;
+            string sql = $"SELECT [ItemID] FROM [Item] WHERE [Name] = '{name}';"; 
+            AppDatabase instance=new AppDatabase(patha);
+            instance.Open();
+            SQLiteDataReader reader = instance.GetData(sql);
+            while(reader.Read())
+            {
+                id = reader.GetInt32(0);
+            }
+            return id;
+        }
         public string AddNewCompany(long oib, string name, string adress, string telephone, string email)
         {
             AppDatabase instance = new AppDatabase(patha);
