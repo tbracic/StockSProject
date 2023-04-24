@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StockS.Logic.Items;
+using System;
 using System.Collections.Generic;
 using System.Configuration.Internal;
 using System.Data.SQLite;
@@ -11,6 +12,7 @@ namespace StockS.Logic.Conclusion
     public class ConclusionRepositroy
     {
         string patha = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "db.db");
+        ItemRepositroy repositroy = new();
         public List<Shift> GetAllShifts()
         {
             List<Shift> result = new List<Shift>();
@@ -83,6 +85,8 @@ namespace StockS.Logic.Conclusion
         {
             string msg = "";
             int conclusion = GetNewConclusionID()-1;
+            int oldquantity = repositroy.GetItemQuantity(itemID);
+            _= repositroy.ChangeQuanitity(itemID, oldquantity-quantity);
             string sql = $"INSERT INTO [SoldItem] VALUES ('{itemID}','{conclusion}','{quantity}') ; " ;
             AppDatabase instance = new AppDatabase(patha);
             instance.Open();

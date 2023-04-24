@@ -45,7 +45,9 @@ namespace StockS.API.Forms
             string msg = repository.CreateNewConclusion(date, shift, user);
             foreach(DataGridViewRow row in dgvSoldItems.Rows)
             {
-                msg += repository.CreateNewSoldItem(itemRepositroy.GetItemID(row.Cells[0].ToString()), int.Parse(row.Cells[1].ToString()));
+                if (!row.IsNewRow) { msg += repository.CreateNewSoldItem(itemRepositroy.GetItemID(row.Cells[0].Value.ToString()),int.Parse(row.Cells[1].Value.ToString())); }
+                else
+                    break;
             }
             MessageBox.Show(msg);
         }
