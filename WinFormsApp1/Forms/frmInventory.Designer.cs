@@ -28,12 +28,58 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "frmInventory";
+            btnClose = new Button();
+            btnPDFAllItems = new Button();
+            btnAllItemsExcel = new Button();
+            SuspendLayout();
+            // 
+            // btnClose
+            // 
+            btnClose.Location = new Point(12, 415);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(75, 23);
+            btnClose.TabIndex = 0;
+            btnClose.Text = "Back";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
+            // 
+            // btnPDFAllItems
+            // 
+            btnPDFAllItems.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnPDFAllItems.Location = new Point(93, 12);
+            btnPDFAllItems.Name = "btnPDFAllItems";
+            btnPDFAllItems.Size = new Size(75, 72);
+            btnPDFAllItems.TabIndex = 1;
+            btnPDFAllItems.Text = "Export all items to PDF";
+            btnPDFAllItems.UseVisualStyleBackColor = true;
+            btnPDFAllItems.Click += btnPDFAllItems_Click;
+            // 
+            // btnAllItemsExcel
+            // 
+            btnAllItemsExcel.Location = new Point(12, 12);
+            btnAllItemsExcel.Name = "btnAllItemsExcel";
+            btnAllItemsExcel.Size = new Size(75, 72);
+            btnAllItemsExcel.TabIndex = 2;
+            btnAllItemsExcel.Text = "Export all items to Excel";
+            btnAllItemsExcel.UseVisualStyleBackColor = true;
+            // 
+            // frmInventory
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(btnAllItemsExcel);
+            Controls.Add(btnPDFAllItems);
+            Controls.Add(btnClose);
+            Name = "frmInventory";
+            Text = "frmInventory";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Button btnClose;
+        private Button btnPDFAllItems;
+        private Button btnAllItemsExcel;
     }
 }

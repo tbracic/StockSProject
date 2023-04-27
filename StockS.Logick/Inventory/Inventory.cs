@@ -1,4 +1,4 @@
-﻿namespace StockS.Logic
+﻿namespace StockS.Logic.Inventory
 {
     public class Inventory
     {

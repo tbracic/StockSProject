@@ -1,4 +1,4 @@
-﻿namespace StockS.Logic.Items
+﻿namespace StockS.Logic.Inventory
 {
     public class QuantityHistory
     {
@@ -8,9 +8,9 @@
 
         public QuantityHistory(int idItem, int idInventory, int quantity)
         {
-            this.IdItem = idItem;
-            this.IdInventory = idInventory;
-            this.Quantity = quantity;
+            IdItem = idItem;
+            IdInventory = idInventory;
+            Quantity = quantity;
         }
     }
 }

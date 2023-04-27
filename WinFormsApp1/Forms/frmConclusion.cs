@@ -50,6 +50,7 @@ namespace StockS.API.Forms
                     break;
             }
             MessageBox.Show(msg);
+            Close();
         }
     }
 }
