@@ -1,52 +1,63 @@
-﻿using QuestPDF.Infrastructure;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-
-
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SQLite;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using StockS.Logic;
 
 namespace StockS.Logic.Inventory
 {
     public class InventoryRepository
     {
-        string patha = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "db.db");
-        public string CreatepdfFile(string title)
+        public Inventory GetInventory(int inventoryID)
         {
-            string FilePath = title + ".pdf";
-            string msg = "";
-            Document.Create(container =>
+            string sql = $"SELECT * FROM [Inventory] WHERE [InventoryID] = '{inventoryID}';";
+            Inventory result = new Inventory();
+            AppDatabase instance = new AppDatabase();
+            instance.Open();
+            SQLiteDataReader reader = instance.GetData(sql);
+            while (reader.Read()) {
+                result.IdInventory = reader.GetInt32(0);
+                result.date = reader.GetString(1);
+                result.User = reader.GetInt64(2);
+
+            }
+            reader.Close();
+            instance.Close();
+            return result;
+        }
+            
+        public List<QuantityHistory> GetAllInventoryItems(int inventoryID)
+        {
+            string sql = $"SELECT * FROM [QuantityHistory] WHERE [Inventory] = '{inventoryID}';";
+            AppDatabase instance = new AppDatabase();
+            QuantityHistory item = new QuantityHistory(0, 0, 0);
+            List<QuantityHistory> result = new List<QuantityHistory>();
+            instance.Open();
+            SQLiteDataReader reader = instance.GetData(sql);
+            while(reader.Read())
             {
-                container.Page(page =>
-                {
-                    page.Size(PageSizes.A4);
-                    page.Margin(2, Unit.Centimetre);
-                    page.PageColor(Colors.White);
-                    page.DefaultTextStyle(x => x.FontSize(20));
+                int IdItem = reader.GetInt32(0);
+                int IdInventory = inventoryID;
+                int Quantity = reader.GetInt32(2);
+                item = new QuantityHistory(IdItem, IdInventory, Quantity);
+                result.Add(item);
+            }
+            reader.Close();
+            instance.Close();
+            return result;
+        }
+        public void CreatePDFInventory(string documentPath,int inventoryID)
+        {
+            InventoryPDF pdftool = new InventoryPDF();
 
-                    page.Header()
-                        .Text(title)
-                        .SemiBold().FontSize(36).FontColor(Colors.Blue.Medium);
-
-                    page.Content()
-                        .PaddingVertical(1, Unit.Centimetre)
-                        .Column(x =>
-                        {
-                            x.Spacing(20);
-
-                            x.Item().Text("jel ovo stvarno tolko jebeno");
-                            x.Item().Image(Placeholders.Image(200, 100));
-                        });
-
-                    page.Footer()
-                        .AlignCenter()
-                        .Text(x =>
-                        {
-                            x.Span("Page ");
-                            x.CurrentPageNumber();
-                        });
-                });
-            })
-.GeneratePdf(FilePath);
-            return FilePath + "is generated." ;
+            pdftool.generateInventoryPDF(documentPath,GetInventory(inventoryID),GetAllInventoryItems(inventoryID));
+        }
+        public void CreatePDFList(string documentPath)
+        {
+            ItemListpdf lista = new ItemListpdf();
+            lista.generateListPdf(documentPath);
         }
     }
 }

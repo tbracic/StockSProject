@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using Microsoft.VisualBasic;
 using System.Security.Cryptography;
+using System.Net.Http.Headers;
 
 namespace StockS.Logic.Items
 {
     public class ItemRepositroy
     {
-        string patha = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "db.db");
 
         public List<Item> GetAllItems()
         {
             Item item = new Item(0, null, 0, 0, 0, 0);
             List<Item> items = new List<Item>();
             string sql = "Select * from Item;";
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
             SQLiteDataReader dataReader = instance.GetData(sql);
             while (dataReader.Read())
@@ -41,7 +41,7 @@ namespace StockS.Logic.Items
             Company company = new Company(0, null, null, null, null);
             List<Company> companies = new List<Company>();
             string sql = "Select * from Company;";
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
             SQLiteDataReader dataReader = instance.GetData(sql);
             while (dataReader.Read())
@@ -70,7 +70,7 @@ namespace StockS.Logic.Items
         {
             int id = 0;
             string sql = $"SELECT [ItemID] FROM [Item] WHERE [Name] = '{name}';"; 
-            AppDatabase instance=new AppDatabase(patha);
+            AppDatabase instance=new AppDatabase();
             instance.Open();
             SQLiteDataReader reader = instance.GetData(sql);
             while(reader.Read())
@@ -79,9 +79,21 @@ namespace StockS.Logic.Items
             }
             return id;
         }
+        public string GetItemName(int id) {
+            string result = null;
+            string sql = $"SELECT [Name] FROM [Item] WHERE [ItemID] = '{id}';";
+            AppDatabase instance = new AppDatabase();
+            instance.Open();
+            SQLiteDataReader reader = instance.GetData(sql);
+            while (reader.Read())
+            {
+                result = reader.GetString(0);
+            }
+            return result;
+        }
         public string AddNewCompany(long oib, string name, string adress, string telephone, string email)
         {
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             string sql = $"INSERT into [Company] VALUES ('{oib}','{name}','{adress}','{telephone}','{email}');";
             instance.Open();
             string msg = instance.InsertData(sql);
@@ -92,7 +104,7 @@ namespace StockS.Logic.Items
         public string AddNewItem(int code, string name, float price, int quantity,int units, long company)
         {
             string msg = "";
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             string sql = $"INSERT into [Item] VALUES ('{code}','{name}','{price}','{quantity}','{units}','{company}');";
             instance.Open();
             msg = instance.InsertData(sql);
@@ -106,7 +118,7 @@ namespace StockS.Logic.Items
             DateTime date = DateTime.Now;
             string sql1 = $"INSERT INTO [PriceHistory] VALUES (null,'{date}','{price1}','{id}');";
             string sql2 = $"UPDATE [Item] SET [Price] = '{price2}' WHERE [ItemID]='{id}';";
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
             msg += instance.InsertData(sql1) + "  ";
             msg += instance.InsertData(sql2);
@@ -118,7 +130,7 @@ namespace StockS.Logic.Items
         {
             int result =-1;
             string sql = $"SELECT [Quantity] FROM [Item] WHERE [ItemID] = '{item}';";
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
             SQLiteDataReader reader = instance.GetData(sql);
             while (reader.Read())
@@ -132,7 +144,7 @@ namespace StockS.Logic.Items
         {
             string msg = "";
             string sql = $"UPDATE [Item] SET [Quantity] = '{quantity}' WHERE [ItemID]='{id}';";
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
             msg += instance.InsertData(sql);
             instance.Close();

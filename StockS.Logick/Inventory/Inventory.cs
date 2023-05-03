@@ -2,8 +2,8 @@
 {
     public class Inventory
     {
-        public int IdFunction { get; set; }
-        public DateTime date { get; set; }
-        public string User { get; set; }
+        public int IdInventory { get; set; }
+        public string date { get; set; }
+        public long User { get; set; }
     }
 }

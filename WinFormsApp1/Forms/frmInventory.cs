@@ -30,9 +30,16 @@ namespace StockS.API.Forms
         {
             repository = new InventoryRepository();
             string filename = "ItemList";
-            string msg = repository.CreatepdfFile(filename);
-            MessageBox.Show(msg);
-            Process.Start("explorer.exe",filename + ".pdf");
+            repository.CreatePDFList(filename);
+            Process.Start("explorer.exe", filename + ".pdf");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            repository = new InventoryRepository();
+            string filename = "ItemList";
+            repository.CreatePDFInventory(filename,1);
+            Process.Start("explorer.exe", filename + ".pdf");
         }
     }
 }

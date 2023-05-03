@@ -8,6 +8,11 @@ namespace StockS.Logic
     public class AppDatabase
     {
         private SQLiteConnection _connection;
+        string patha = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "db.db");
+        public AppDatabase()
+        {
+            _connection = new SQLiteConnection("DataSource=" + patha);
+        }
         public AppDatabase(string path)
         {
             _connection = new SQLiteConnection("DataSource="+path);
