@@ -12,6 +12,7 @@ using StockS.Logic;
 using StockS.Logic.Items;
 using StockS.Logic.Receipt;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Diagnostics;
 
 namespace StockS.API.Forms
 {
@@ -50,14 +51,14 @@ namespace StockS.API.Forms
         {
             // jebenti boga isusova i ovaj commbobx
             DataGridViewRow selected = dgvBoughtItems.Rows[0];
-            string itemSelected= selected.Cells[0].Value.ToString();
+            string itemSelected = selected.Cells[0].Value.ToString();
             repositroy = new ItemRepositroy();
             List<Item> items = repositroy.GetAllItems();
             int idItem = 0;
 
             string comp = cBoxCompany.SelectedItem.ToString();
             List<Company> companies = repositroy.GetAllCompanies();
-            long companyID= 0;
+            long companyID = 0;
             foreach (Company company in companies)
             {
                 if (company.Name == comp) companyID = company.OIB;
@@ -69,18 +70,27 @@ namespace StockS.API.Forms
             float quantity = 0;
             foreach (DataGridViewRow row in dgvBoughtItems.Rows)
             {
-                if (!row.IsNewRow) { 
-                foreach (Item item in items)
+                if (!row.IsNewRow)
                 {
-                    // tu izbacuje compile error
-                    if (item.Name == row.Cells[0].Value.ToString()) { idItem = item.IdItem; quantity = item.Quantity; };
-                        
+                    foreach (Item item in items)
+                    {
+                        // tu izbacuje compile error
+                        if (item.Name == row.Cells[0].Value.ToString()) { idItem = item.IdItem; quantity = item.Quantity; };
+
+                    }
+                    msg += repo1.AddBoughtItem(idItem, no, int.Parse(row.Cells[1].Value.ToString()), float.Parse(row.Cells[2].Value.ToString()), quantity);
                 }
-                msg += repo1.AddBoughtItem(idItem, no, int.Parse(row.Cells[1].Value.ToString()), float.Parse(row.Cells[2].Value.ToString()), quantity);
-            }
             }
             MessageBox.Show(msg);
             Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string filename = "Receipt" + DateTime.Now.DayOfYear;
+            repo1 = new ReceiptRepository();
+            repo1.CreatePDFReceipt(filename, 2);
+            Process.Start("explorer.exe", filename + ".pdf");
         }
     }
 }

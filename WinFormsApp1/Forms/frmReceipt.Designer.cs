@@ -35,6 +35,7 @@
             btnCLose = new Button();
             btnCommit = new Button();
             cBoxCompany = new ComboBox();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvBoughtItems).BeginInit();
             SuspendLayout();
             // 
@@ -93,11 +94,22 @@
             cBoxCompany.Size = new Size(121, 23);
             cBoxCompany.TabIndex = 3;
             // 
+            // button1
+            // 
+            button1.Location = new Point(255, 415);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 4;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // frmReceipt
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(506, 450);
+            Controls.Add(button1);
             Controls.Add(cBoxCompany);
             Controls.Add(btnCommit);
             Controls.Add(btnCLose);
@@ -119,5 +131,6 @@
         private DataGridViewTextBoxColumn dgvQuantity;
         private DataGridViewTextBoxColumn dgvPrice;
         private ComboBox cBoxCompany;
+        private Button button1;
     }
 }

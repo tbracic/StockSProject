@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using OfficeOpenXml;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StockS.Logic;
+using StockS.Logic.Items;
 
 namespace StockS.Logic.Inventory
 {
     public class InventoryRepository
     {
+
         public Inventory GetInventory(int inventoryID)
         {
             string sql = $"SELECT * FROM [Inventory] WHERE [InventoryID] = '{inventoryID}';";
@@ -53,6 +56,27 @@ namespace StockS.Logic.Inventory
             InventoryPDF pdftool = new InventoryPDF();
 
             pdftool.generateInventoryPDF(documentPath,GetInventory(inventoryID),GetAllInventoryItems(inventoryID));
+        }
+        public void CreateXLSInventory(string documentPath,int inventoryID) 
+        {
+
+        }
+        public void CreateXLSList(string documentPath)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (var p = new ExcelPackage())
+            {
+                var ws = p.Workbook.Worksheets.Add("Lista");
+                int i = 1;
+                ItemRepositroy repo = new ItemRepositroy();
+                List<string> names= repo.GetAllItemNames();
+                foreach(string name in names)
+                {
+                    ws.Cells[i, 1].Value = name;
+                    i++;
+                }
+                p.SaveAs(new FileInfo(AppContext.BaseDirectory + "lista.xlsx"));
+            }
         }
         public void CreatePDFList(string documentPath)
         {

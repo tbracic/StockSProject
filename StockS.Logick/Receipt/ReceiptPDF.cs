@@ -6,19 +6,21 @@ using StockS.Logic.User;
 using StockS.Logic.Items;
 using SkiaSharp;
 using OfficeOpenXml.Table.PivotTable;
+using StockS.Logic.Inventory;
+using static QuestPDF.Helpers.Colors;
 
-namespace StockS.Logic.Inventory
+namespace StockS.Logic.Receipt
 {
-    public class InventoryPDF
+    public class ReceiptPDF
     {
-        Inventory inventory1;
-        List<QuantityHistory> items;
+        Receipt receipt;
+        List<BoughtItem> receiptItems;
         UserRepository repo = new UserRepository();
         float total = 0;
-        public void generateInventoryPDF(string documentPath, Inventory inventory, List<QuantityHistory> inventoryItems)
+        public void GenrateReceiptPDF(string documentPath, Receipt receipt1, List<BoughtItem> boughtItems)
         {
-            inventory1 = inventory;
-            items = inventoryItems;
+            receipt = receipt1;
+            receiptItems = boughtItems;
             Document.Create(container =>
             {
                 container.Page(page =>
@@ -37,8 +39,8 @@ namespace StockS.Logic.Inventory
                         x.TotalPages();
                     });
                 });
-                
-                }).GeneratePdf(documentPath + ".pdf");
+
+            }).GeneratePdf(documentPath + ".pdf");
         }
         void ComposeHeader(IContainer container)
         {
@@ -48,25 +50,25 @@ namespace StockS.Logic.Inventory
             {
                 row.RelativeItem().Column(column =>
                 {
-                    column.Item().Text("Inventura robe").Style(titleStyle);
-                    column.Item().Text( text => {
+                    column.Item().Text("Primka robe").Style(titleStyle);
+                    column.Item().Text(text => {
                         text.Span("Broj: ").SemiBold();
-                        text.Span(inventory1.IdInventory.ToString());
+                        text.Span(receipt.Id.ToString());
                     });
                     column.Item().Text(text =>
                     {
                         text.Span("Datum izrade: ").SemiBold();
-                        text.Span(inventory1.date);
+                        text.Span(receipt.Date);
                     });
                     column.Item().Text(text =>
                     {
+                        
                         text.Span("Odgovorna osoba: ").SemiBold();
-                        text.Span(repo.GetUser(inventory1.User).Name + " " + repo.GetUser(inventory1.User).Surname);
+                        text.Span(repo.GetUser(receipt.User).Name + " " + repo.GetUser(receipt.User).Surname);
                     });
-
                 });
 
-                
+
             });
         }
         void ComposeContent(IContainer container)
@@ -106,9 +108,9 @@ namespace StockS.Logic.Inventory
 
                     header.Cell().Element(CellStyle).AlignCenter().Text("Kolicina");
 
-                    header.Cell().Element(CellStyle).AlignCenter().Text("Cijena");
+                    header.Cell().Element(CellStyle).AlignCenter().Text("Prodajnc cijena s porezom");
 
-                    header.Cell().Element(CellStyle).AlignRight().Text("Vrijednost");
+                    header.Cell().Element(CellStyle).AlignRight().Text("Prodajna vrijednost");
 
 
 
@@ -119,14 +121,14 @@ namespace StockS.Logic.Inventory
                 });
                 ItemRepositroy repository = new ItemRepositroy();
                 int i = 1;
-                foreach (QuantityHistory item in items)
+                foreach (BoughtItem item in receiptItems)
                 {
                     Item item1 = repository.GetItem(item.IdItem);
-                    
-                    table.Cell().Element(CellStyle).AlignCenter().Text(item1.IdItem);
+
+                    table.Cell().Element(CellStyle).AlignCenter().Text(i);
                     table.Cell().Element(CellStyle).AlignCenter().Text(item1.Name);
                     table.Cell().Element(CellStyle).AlignCenter().Text(item1.Unit);
-                    table.Cell().Element(CellStyle).AlignCenter().Text(item1.Quantity);
+                    table.Cell().Element(CellStyle).AlignCenter().Text(item.Quantity);
                     table.Cell().Element(CellStyle).AlignCenter().Text(item1.Price);
                     table.Cell().Element(CellStyle).AlignCenter().Text(item1.Price * item1.Quantity);
                     total += item1.Price * item1.Quantity;
@@ -153,6 +155,5 @@ namespace StockS.Logic.Inventory
             });
 
         }
-
     }
 }

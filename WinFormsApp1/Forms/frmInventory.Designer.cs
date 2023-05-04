@@ -31,7 +31,7 @@
             btnClose = new Button();
             btnPDFAllItems = new Button();
             btnAllItemsExcel = new Button();
-            button1 = new Button();
+            btnInventoryPDF = new Button();
             SuspendLayout();
             // 
             // btnClose
@@ -63,23 +63,24 @@
             btnAllItemsExcel.TabIndex = 2;
             btnAllItemsExcel.Text = "Export all items to Excel";
             btnAllItemsExcel.UseVisualStyleBackColor = true;
+            btnAllItemsExcel.Click += btnAllItemsExcel_Click;
             // 
-            // button1
+            // btnInventoryPDF
             // 
-            button1.Location = new Point(174, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 72);
-            button1.TabIndex = 3;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btnInventoryPDF.Location = new Point(174, 12);
+            btnInventoryPDF.Name = "btnInventoryPDF";
+            btnInventoryPDF.Size = new Size(75, 72);
+            btnInventoryPDF.TabIndex = 3;
+            btnInventoryPDF.Text = "Generate Invenotory PDF";
+            btnInventoryPDF.UseVisualStyleBackColor = true;
+            btnInventoryPDF.Click += button1_Click;
             // 
             // frmInventory
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button1);
+            Controls.Add(btnInventoryPDF);
             Controls.Add(btnAllItemsExcel);
             Controls.Add(btnPDFAllItems);
             Controls.Add(btnClose);
@@ -93,6 +94,6 @@
         private Button btnClose;
         private Button btnPDFAllItems;
         private Button btnAllItemsExcel;
-        private Button button1;
+        private Button btnInventoryPDF;
     }
 }

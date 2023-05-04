@@ -37,9 +37,16 @@ namespace StockS.API.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             repository = new InventoryRepository();
-            string filename = "ItemList";
-            repository.CreatePDFInventory(filename,1);
+            string filename = "Inventory" + DateTime.Now.Year.ToString();
+            repository.CreatePDFInventory(filename, 1);
             Process.Start("explorer.exe", filename + ".pdf");
+        }
+
+        private void btnAllItemsExcel_Click(object sender, EventArgs e)
+        {
+            repository = new InventoryRepository();
+            string filename = "ItemList";
+            repository.CreateXLSList(filename);
         }
     }
 }

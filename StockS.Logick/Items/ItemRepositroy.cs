@@ -65,7 +65,24 @@ namespace StockS.Logic.Items
             foreach (Item item in items) { result.Add(item.Name); }
             return result;
         }
-
+        public Item GetItem(int id)
+        {
+            string sql = $"SELECT * FROM [Item] WHERE [ItemID] = '{id}';";
+            AppDatabase instance = new AppDatabase();
+            instance.Open();
+            SQLiteDataReader reader = instance.GetData(sql);
+            Item result = new Item(0,null,0,0,0,0);
+            while (reader.Read()) 
+            {
+                result.IdItem= reader.GetInt32(0);
+                result.Name= reader.GetString(1);
+                result.Price = reader.GetFloat(2);
+                result.Quantity = reader.GetInt32(3);
+                result.Unit= (Units)reader.GetInt32(4);
+                result.Company = reader.GetInt64(5);
+            }
+            return result;
+        }
         public int GetItemID(string name)
         {
             int id = 0;
