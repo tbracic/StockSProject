@@ -13,11 +13,6 @@ namespace StockS.Logic
         {
             _connection = new SQLiteConnection("DataSource=" + patha);
         }
-        public AppDatabase(string path)
-        {
-            _connection = new SQLiteConnection("DataSource="+path);
-
-        }
         public void Open() { _connection.Open(); }
         public void Close() { _connection.Close(); }
 
@@ -28,12 +23,11 @@ namespace StockS.Logic
             SQLiteDataReader rdr = cmd.ExecuteReader();
             return rdr;
         }
-        public string InsertData(string sql)
+        public void InsertData(string sql)
         {
             SQLiteCommand cmd = _connection.CreateCommand();
             cmd.CommandText = sql;
-            int bum =cmd.ExecuteNonQuery();
-            return "Good. " + bum;
+            _ = cmd.ExecuteNonQuery();
         }
         public string[] GetAllTables()
         {

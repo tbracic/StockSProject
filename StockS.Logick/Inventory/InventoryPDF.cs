@@ -61,7 +61,7 @@ namespace StockS.Logic.Inventory
                     column.Item().Text(text =>
                     {
                         text.Span("Odgovorna osoba: ").SemiBold();
-                        text.Span(repo.GetUser(inventory1.User).Name + " " + repo.GetUser(inventory1.User).Surname);
+                        text.Span(repo.GetUserOIB(inventory1.User).Name + " " + repo.GetUserOIB(inventory1.User).Surname);
                     });
 
                 });

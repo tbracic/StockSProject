@@ -14,20 +14,17 @@ namespace StockS.Logic.WriteOff
         
     {
         private ItemRepositroy repository;
-        string patha = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "db.db");
-
-        public string AddWriteOff(WriteOff document)
+        public void AddWriteOff(WriteOff document)
         {
             repository = new ItemRepositroy();
-            string msg = "";
             int item = repository.GetItemQuantity(document.Item);
-            msg += repository.ChangeQuanitity(document.Item, document.Quantity);
+            repository.ChangeQuanitity(document.Item, document.Quantity);
             string sql = $"INSERT INTO [WriteOff] VALUES ('{document.IdWriteOff}','{document.Item}','{item}','{document.Description}','{document.User}');";
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
-            msg = instance.InsertData(sql);
+            instance.InsertData(sql);
             instance.Close();
-            return msg;
+           
         }
 
         public List<WriteOff> GetAllWriteOffs()
@@ -35,7 +32,7 @@ namespace StockS.Logic.WriteOff
             List<WriteOff> list = new List<WriteOff>();
             WriteOff writeOff = null;
             string sql = "Select * from [WriteOff] ";
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
             SQLiteDataReader dataReader = instance.GetData(sql);
             while (dataReader.Read())

@@ -10,27 +10,26 @@ namespace StockS.Logic.Receipt
     public class ReceiptRepository
     {
 
-        public string AddBoughtItem(int item,int receipt,int quantity, float price,float oldQuantity)
+        public void AddBoughtItem(int item,int receipt,int quantity, float price,float oldQuantity)
         {
 
             string sql = $"INSERT INTO [BoughtItem] VALUES ('{item}','{receipt}','{quantity}','{price}');";
             AppDatabase instance = new AppDatabase();
             string sql2 = $"UPDATE [Item] SET [Quantity]='{quantity+oldQuantity}' WHERE [ItemID]='{item}';";
             instance.Open();
-            string msg = instance.InsertData(sql);
-            msg += instance.InsertData(sql2);
+            instance.InsertData(sql);
+            instance.InsertData(sql2);
             instance.Close();
-            return msg;
+            
         }
-        public string AddReceipt(int no, long companyID, long userOIB, DateTime now)
+        public void AddReceipt(int no, long companyID, long userOIB, DateTime now)
         {
             string sql = $"INSERT INTO [Receipt] VALUES('{no}','{companyID}','{userOIB}','{now}');";
             AppDatabase instance = new AppDatabase();
             instance.Open();
-            string msg = instance.InsertData(sql);
+            instance.InsertData(sql);
             instance.Close();
-            return msg;
-        }
+            }
         public List<BoughtItem> GetBoughtItems(int receiptID)
         {
             List<BoughtItem > result = new List<BoughtItem>();

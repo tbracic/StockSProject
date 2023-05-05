@@ -34,8 +34,8 @@ namespace StockS.API.Forms
             string title = txtTitle.Text;
             int id = int.Parse(lblID.Text);
             
-            string msg = repositroy.AddRole(id, title);
-            MessageBox.Show(msg);
+            repositroy.AddRole(id, title);
+            MessageBox.Show("");
             Close();
 
         }

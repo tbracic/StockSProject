@@ -10,8 +10,9 @@
         public string Email { get; set; }
         public int Role { get; set; }
         public string Password { get; set; }
+        public string Username { get; set; }
 
-        public User(long id, string name, string surname, string adress, string telephone, string mail, int role, string pass)
+        public User(long id, string name, string surname, string adress, string telephone, string mail, int role, string pass,string username)
         {
             this.OIB = id;
             this.Name = name;
@@ -21,6 +22,7 @@
             this.Email = mail;
             this.Role = role;
             this.Password = pass;
+            this.Username = username;
         }
     }
 }

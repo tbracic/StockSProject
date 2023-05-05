@@ -7,12 +7,29 @@ using System.Text;
 using System.Threading.Tasks;
 using StockS.Logic;
 using StockS.Logic.Items;
+using Microsoft.VisualBasic;
 
 namespace StockS.Logic.Inventory
 {
     public class InventoryRepository
     {
+        public void CreateInventory(Inventory inventory)
+        {
 
+            string sql = $"INSERT INTO [Inventory] VALUES('{inventory.IdInventory}','{inventory.date}', '{inventory.User}');";
+            AppDatabase instance = new AppDatabase();
+            instance.Open();
+            instance.InsertData(sql);
+            instance.Close();
+        }
+        public void AddQuantityHistory(QuantityHistory history)
+        {
+            AppDatabase appDatabase = new AppDatabase();
+            appDatabase.Open();
+            string sql = $"INSERT INTO [QuantityHistory] VALUES('{history.IdItem}','{history.IdInventory}','{history.Quantity}');";
+            appDatabase.InsertData(sql);
+            appDatabase.Close();
+        }
         public Inventory GetInventory(int inventoryID)
         {
             string sql = $"SELECT * FROM [Inventory] WHERE [InventoryID] = '{inventoryID}';";

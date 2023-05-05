@@ -11,14 +11,14 @@ namespace StockS.Logic.Conclusion
 {
     public class ConclusionRepositroy
     {
-        string patha = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "db.db");
+
         ItemRepositroy repositroy = new();
         public List<Shift> GetAllShifts()
         {
             List<Shift> result = new List<Shift>();
             string sql = "SELECT * FROM [Shift];";
             Shift shift = null;
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
             SQLiteDataReader reader = instance.GetData(sql);
             while (reader.Read())
@@ -48,7 +48,7 @@ namespace StockS.Logic.Conclusion
             List<Conclusion> result = new List<Conclusion>();
             Conclusion conclusion = null;
             string sql = "SELECT * From [Conclusion];";
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
             SQLiteDataReader reader = instance.GetData(sql);
             while (reader.Read())
@@ -70,29 +70,29 @@ namespace StockS.Logic.Conclusion
             return result + 1;
         }
 
-        public string CreateNewConclusion(string date,int shift,long user)
+        public void CreateNewConclusion(string date,int shift,long user)
         {
-            string msg = "";
+           
             int id = GetNewConclusionID();
             string sql = $"INSERT INTO [Conclusion] VALUES ('{id}','{date}','{shift}','{user}');";
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
-            msg += instance.InsertData(sql);
+            instance.InsertData(sql);
             instance.Close();
-            return msg;
+
         }
-        public string CreateNewSoldItem(int itemID,int quantity)
+        public void CreateNewSoldItem(int itemID,int quantity)
         {
-            string msg = "";
+
             int conclusion = GetNewConclusionID()-1;
             int oldquantity = repositroy.GetItemQuantity(itemID);
-            _= repositroy.ChangeQuanitity(itemID, oldquantity-quantity);
+            repositroy.ChangeQuanitity(itemID, oldquantity-quantity);
             string sql = $"INSERT INTO [SoldItem] VALUES ('{itemID}','{conclusion}','{quantity}') ; " ;
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
-            msg = instance.InsertData(sql);
+            instance.InsertData(sql);
             instance.Close();
-            return msg;
+
         }
     }
 }

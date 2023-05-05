@@ -99,10 +99,6 @@ namespace StockS.API.Forms
             form.ShowDialog();
         }
 
-        private void btnAccess_Click(object sender, EventArgs e)
-        {
-            Form form = new frmAccess();
-            form.ShowDialog();
-        }
+
     }
 }

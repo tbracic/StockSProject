@@ -66,7 +66,7 @@ namespace StockS.API.Forms
             int no = repo1.GetAllReceipts().Count() + 1;
             long userOIB = current.OIB;
             DateTime now = DateTime.Now;
-            string msg = repo1.AddReceipt(no, companyID, userOIB, now);
+            repo1.AddReceipt(no, companyID, userOIB, now);
             float quantity = 0;
             foreach (DataGridViewRow row in dgvBoughtItems.Rows)
             {
@@ -78,10 +78,9 @@ namespace StockS.API.Forms
                         if (item.Name == row.Cells[0].Value.ToString()) { idItem = item.IdItem; quantity = item.Quantity; };
 
                     }
-                    msg += repo1.AddBoughtItem(idItem, no, int.Parse(row.Cells[1].Value.ToString()), float.Parse(row.Cells[2].Value.ToString()), quantity);
+                    repo1.AddBoughtItem(idItem, no, int.Parse(row.Cells[1].Value.ToString()), float.Parse(row.Cells[2].Value.ToString()), quantity);
                 }
             }
-            MessageBox.Show(msg);
             Close();
         }
 

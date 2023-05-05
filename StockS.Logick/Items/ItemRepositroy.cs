@@ -108,25 +108,22 @@ namespace StockS.Logic.Items
             }
             return result;
         }
-        public string AddNewCompany(long oib, string name, string adress, string telephone, string email)
+        public void AddNewCompany(long oib, string name, string adress, string telephone, string email)
         {
             AppDatabase instance = new AppDatabase();
             string sql = $"INSERT into [Company] VALUES ('{oib}','{name}','{adress}','{telephone}','{email}');";
             instance.Open();
-            string msg = instance.InsertData(sql);
+            instance.InsertData(sql);
             instance.Close();
-            return msg;
         }
 
-        public string AddNewItem(int code, string name, float price, int quantity,int units, long company)
+        public void AddNewItem(int code, string name, float price, int quantity,int units, long company)
         {
-            string msg = "";
             AppDatabase instance = new AppDatabase();
             string sql = $"INSERT into [Item] VALUES ('{code}','{name}','{price}','{quantity}','{units}','{company}');";
             instance.Open();
-            msg = instance.InsertData(sql);
+            instance.InsertData(sql);
             instance.Close();
-            return msg;
         }
 
         public string ChangePrice(int id, float price1,float price2)
@@ -137,8 +134,8 @@ namespace StockS.Logic.Items
             string sql2 = $"UPDATE [Item] SET [Price] = '{price2}' WHERE [ItemID]='{id}';";
             AppDatabase instance = new AppDatabase();
             instance.Open();
-            msg += instance.InsertData(sql1) + "  ";
-            msg += instance.InsertData(sql2);
+            instance.InsertData(sql1);
+            instance.InsertData(sql2);
             instance.Close();
             return msg;
         }
@@ -157,15 +154,13 @@ namespace StockS.Logic.Items
             return result;
         }
 
-        public string ChangeQuanitity(int id, int quantity)
+        public void ChangeQuanitity(int id, int quantity)
         {
-            string msg = "";
             string sql = $"UPDATE [Item] SET [Quantity] = '{quantity}' WHERE [ItemID]='{id}';";
             AppDatabase instance = new AppDatabase();
             instance.Open();
-            msg += instance.InsertData(sql);
+            instance.InsertData(sql);
             instance.Close();
-            return msg;
         }
     }
 }

@@ -17,7 +17,6 @@ namespace StockS.API.Forms
     public partial class frmAddItems : Form
     {
         ItemRepositroy repositroy;
-        InputCheck check;
         public frmAddItems(int id)
         {
             InitializeComponent();
@@ -56,14 +55,12 @@ namespace StockS.API.Forms
                     companyID = company.OIB;
                 }
             }
-            check = new InputCheck();
-            string msg = check.CheckItem(name, price, quantity);
-            if (string.IsNullOrEmpty(msg))
-            {
-                MessageBox.Show(repositroy.AddNewItem(code, name, price, quantity,units,companyID));
+           
+           
+                repositroy.AddNewItem(code, name, price, quantity,units,companyID);
                 Close();
-            }
-            else MessageBox.Show(msg);
+            
+            
             
         }
     }

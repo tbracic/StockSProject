@@ -57,8 +57,8 @@ namespace StockS.API.Forms
             long user = currentUser.OIB;
             WriteOff document = new WriteOff(id,idItem, quantity, desc,user);
             repository = new WriteOffRepository();
-            string msg = repository.AddWriteOff(document);
-            MessageBox.Show(msg);
+            repository.AddWriteOff(document);
+            MessageBox.Show("");
             Close();
         }
     }

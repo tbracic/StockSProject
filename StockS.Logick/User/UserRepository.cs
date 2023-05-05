@@ -11,15 +11,14 @@ namespace StockS.Logic.User
 
     public class UserRepository
     {
-        string patha = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "db.db");
         public string GetPasswordCrypted(string password) { return password; }
-        
+        string patha = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "db.db");
         public List<User> GetAllUsers()
         {
             User user;
             string sql = "SELECT * FROM [User];";
             List<User> users = new List<User>();
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
             SQLiteDataReader dataReader= instance.GetData(sql);
             while (dataReader.Read())
@@ -32,7 +31,8 @@ namespace StockS.Logic.User
                 string email = dataReader.GetString(5);
                 int role = dataReader.GetInt32(6);
                 string password = dataReader.GetString(7);
-                user = new User(oib, name, surname, adress, telephone, email, role, password);
+                string username = dataReader.GetString(8);
+                user = new User(oib, name, surname, adress, telephone, email, role, password, username);
                 users.Add(user);
             }
             dataReader.Close();
@@ -40,12 +40,39 @@ namespace StockS.Logic.User
             return users;
 
         }
-        public User GetUser(long oiba)
+        public User GetUserOIB (long oib)
+        {
+            User user = null;
+            string sql = $"SELECT * FROM [User] WHERE [OIB] = '{oib}'";
+            List<User> users = new List<User>();
+            AppDatabase instance = new AppDatabase();
+            instance.Open();
+            SQLiteDataReader dataReader = instance.GetData(sql);
+            while (dataReader.Read())
+            {
+                
+                string name = dataReader.GetString(1);
+                string surname = dataReader.GetString(2);
+                string adress = dataReader.GetString(3);
+                string telephone = dataReader.GetString(4);
+                string email = dataReader.GetString(5);
+                int role = dataReader.GetInt32(6);
+                string password = dataReader.GetString(7);
+                string username = dataReader.GetString(8);
+
+                user = new User(oib, name, surname, adress, telephone, email, role, password, username);
+                users.Add(user);
+            }
+            dataReader.Close();
+            instance.Close();
+            return user;
+        }
+        public User GetUser(string username)
         {
             User user =null;
-            string sql = "SELECT * FROM [User] WHERE [OIB] = "+oiba+";";
+            string sql = $"SELECT * FROM [User] WHERE [Login] = '{username}'";
             List<User> users = new List<User>();
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
             SQLiteDataReader dataReader = instance.GetData(sql);
             while (dataReader.Read())
@@ -58,7 +85,8 @@ namespace StockS.Logic.User
                 string email = dataReader.GetString(5);
                 int role = dataReader.GetInt32(6);
                 string password = dataReader.GetString(7);
-                user = new User(oib, name, surname, adress, telephone, email, role, password);
+                
+                user = new User(oib, name, surname, adress, telephone, email, role, password,username);
                 users.Add(user);
             }
             dataReader.Close();
@@ -71,14 +99,14 @@ namespace StockS.Logic.User
             if (!File.Exists(patha)) { return "Database doesnt exist in courrent context"; }
             return "";
         }
-        public object GetUserLogin(long oiba, string pass)
+        public object GetUserLogin(string username, string pass)
         {
             string msg = CheckIfDatabaseExist();
             if (!string.IsNullOrEmpty(msg)) { return msg; }
             else
             {
-                User user = new User(0, null,null, null, null, null,0,null);
-                  user = GetUser(oiba);
+                User user = new User(0, null,null, null, null, null,0,null,username);
+                  user = GetUser(username);
                 if (user == null) { return "User doesnt exist."; }
                 else
                 {
@@ -98,7 +126,7 @@ namespace StockS.Logic.User
             List<Role> roles = new List<Role>();
             Role role = null;
             string sql = "Select * from Role ";
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
             SQLiteDataReader dataReader = instance.GetData(sql);
             while (dataReader.Read())
@@ -117,7 +145,7 @@ namespace StockS.Logic.User
             Role role = null;
             string sql = "Select * from Role where RoleID = " + id;
             List<Role> roles = new List<Role>();
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
             SQLiteDataReader dataReader = instance.GetData(sql);
             while (dataReader.Read())
@@ -137,25 +165,25 @@ namespace StockS.Logic.User
             else { return role.Title.ToString(); }
         }
 
-        public string AddUser(long oib,string name,string surr ,string adress,string mail,string telephone,int role,string pass0)
+        public void AddUser(long oib,string name,string surr ,string adress,string mail,string telephone,int role,string pass0)
         {
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             string pass = GetPasswordCrypted(pass0);
             string sql = $"INSERT INTO [User] VALUES ('{oib}','{name}','{surr}','{adress}','{mail}','{telephone}','{role}','{pass}');";
             instance.Open();
-            string msg = instance.InsertData(sql);
+            instance.InsertData(sql);
             instance.Close();
-            return msg;
+
         }
 
-        public string AddRole(int id, string title)
+        public void AddRole(int id, string title)
         {
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             string sql = $"INSERT INTO [Role] VALUES ('{id}','{title}');";
             instance.Open();
-            string msg = instance.InsertData(sql);
+            instance.InsertData(sql);
             instance.Close();
-            return msg;
+
         }
 
         public List<Shift> GetAllShifts()
@@ -163,7 +191,7 @@ namespace StockS.Logic.User
             Shift shift;
             List<Shift> list = new List<Shift>();
             string sql = "SELECT* FROM [Shift]";
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             instance.Open();
             SQLiteDataReader reader = instance.GetData(sql);
             while (reader.Read())
@@ -179,14 +207,13 @@ namespace StockS.Logic.User
             return list;
         }
 
-        public string AddShift(int id, string start, string end)
+        public void AddShift(int id, string start, string end)
         {
-            AppDatabase instance = new AppDatabase(patha);
+            AppDatabase instance = new AppDatabase();
             string sql = $"INSERT INTO [Shift] VALUES ('{id}','{start}','{end}');";
             instance.Open();
-            string msg = instance.InsertData(sql);
+            instance.InsertData(sql);
             instance.Close();
-            return msg;
         }
     }
 

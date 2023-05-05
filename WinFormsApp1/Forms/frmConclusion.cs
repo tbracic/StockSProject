@@ -41,11 +41,12 @@ namespace StockS.API.Forms
             int shift = int.Parse(cBoxShift.SelectedItem.ToString());
             repository = new ConclusionRepositroy();
             itemRepositroy = new ItemRepositroy();
-
-            string msg = repository.CreateNewConclusion(date, shift, user);
+            repository.CreateNewConclusion(date, shift, user);
+            string msg = "Good";
+                
             foreach(DataGridViewRow row in dgvSoldItems.Rows)
             {
-                if (!row.IsNewRow) { msg += repository.CreateNewSoldItem(itemRepositroy.GetItemID(row.Cells[0].Value.ToString()),int.Parse(row.Cells[1].Value.ToString())); }
+                if (!row.IsNewRow) {repository.CreateNewSoldItem(itemRepositroy.GetItemID(row.Cells[0].Value.ToString()),int.Parse(row.Cells[1].Value.ToString())); }
                 else
                     break;
             }

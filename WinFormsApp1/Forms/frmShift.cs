@@ -32,8 +32,8 @@ namespace StockS.API.Forms
             string start =txtStart.Text;
             string end = txtEnd.Text;
             repository = new UserRepository();
-            string msg = repository.AddShift(id, start, end);
-            MessageBox.Show(msg);
+            repository.AddShift(id, start, end);
+            MessageBox.Show("");
             Close();
         }
     }

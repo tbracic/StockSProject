@@ -34,7 +34,8 @@ namespace StockS.API.Forms
             string adress = txtAdress.Text;
             string telephone = txtPhone.Text;
             string email = txtMail.Text;
-            string poruka = repository.AddNewCompany(oib, name, adress, telephone, email);
+            string poruka = "Good";
+            repository.AddNewCompany(oib, name, adress, telephone, email);
             MessageBox.Show(poruka);
             Close();
         }

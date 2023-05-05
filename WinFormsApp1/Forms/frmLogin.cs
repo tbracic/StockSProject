@@ -12,7 +12,7 @@ namespace StockS
         {
             InitializeComponent();
             // super admin logiranje
-            txtBoxUsername.Text = "11111111111";
+            txtBoxUsername.Text = "sadmin";
             txtBoxPassword.Text = "IdeGas123";
         }
 
@@ -20,10 +20,10 @@ namespace StockS
         {
             login = new Login();
             
-            string oib = txtBoxUsername.Text;
+            string username = txtBoxUsername.Text;
             
             string password = txtBoxPassword.Text;
-            object messege = login.SLogIn(oib, password);
+            object messege = login.SLogIn(username, password);
             if(messege is string) { MessageBox.Show(messege.ToString()); }
             else 
             {

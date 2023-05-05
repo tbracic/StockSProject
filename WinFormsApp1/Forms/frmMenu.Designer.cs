@@ -36,7 +36,6 @@
             btnAddCompany = new Button();
             btnRegister = new Button();
             btnRole = new Button();
-            btnAccess = new Button();
             btnWriteOff = new Button();
             btnReceipt = new Button();
             btnConclusion = new Button();
@@ -122,16 +121,6 @@
             btnRole.UseVisualStyleBackColor = true;
             btnRole.Click += btnRole_Click;
             // 
-            // btnAccess
-            // 
-            btnAccess.Location = new Point(12, 126);
-            btnAccess.Name = "btnAccess";
-            btnAccess.Size = new Size(201, 23);
-            btnAccess.TabIndex = 8;
-            btnAccess.Text = "Edit function access";
-            btnAccess.UseVisualStyleBackColor = true;
-            btnAccess.Click += btnAccess_Click;
-            // 
             // btnWriteOff
             // 
             btnWriteOff.Location = new Point(219, 38);
@@ -192,7 +181,6 @@
             Controls.Add(btnConclusion);
             Controls.Add(btnReceipt);
             Controls.Add(btnWriteOff);
-            Controls.Add(btnAccess);
             Controls.Add(btnRole);
             Controls.Add(btnRegister);
             Controls.Add(btnAddCompany);
@@ -217,7 +205,6 @@
         private Button btnAddCompany;
         private Button btnRegister;
         private Button btnRole;
-        private Button btnAccess;
         private Button btnWriteOff;
         private Button btnReceipt;
         private Button btnConclusion;

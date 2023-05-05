@@ -64,7 +64,7 @@ namespace StockS.Logic.Receipt
                     {
                         
                         text.Span("Odgovorna osoba: ").SemiBold();
-                        text.Span(repo.GetUser(receipt.User).Name + " " + repo.GetUser(receipt.User).Surname);
+                        text.Span(repo.GetUserOIB(receipt.User).Name + " " + repo.GetUserOIB(receipt.User).Surname);
                     });
                 });
 
