@@ -32,11 +32,14 @@
             btnPDFAllItems = new Button();
             btnAllItemsExcel = new Button();
             btnInventoryPDF = new Button();
+            dgvInventory = new DataGridView();
+            btnCommit = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvInventory).BeginInit();
             SuspendLayout();
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(12, 415);
+            btnClose.Location = new Point(12, 366);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(75, 23);
             btnClose.TabIndex = 0;
@@ -47,7 +50,7 @@
             // btnPDFAllItems
             // 
             btnPDFAllItems.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            btnPDFAllItems.Location = new Point(93, 12);
+            btnPDFAllItems.Location = new Point(12, 12);
             btnPDFAllItems.Name = "btnPDFAllItems";
             btnPDFAllItems.Size = new Size(75, 72);
             btnPDFAllItems.TabIndex = 1;
@@ -57,7 +60,7 @@
             // 
             // btnAllItemsExcel
             // 
-            btnAllItemsExcel.Location = new Point(12, 12);
+            btnAllItemsExcel.Location = new Point(12, 168);
             btnAllItemsExcel.Name = "btnAllItemsExcel";
             btnAllItemsExcel.Size = new Size(75, 72);
             btnAllItemsExcel.TabIndex = 2;
@@ -67,7 +70,7 @@
             // 
             // btnInventoryPDF
             // 
-            btnInventoryPDF.Location = new Point(174, 12);
+            btnInventoryPDF.Location = new Point(12, 90);
             btnInventoryPDF.Name = "btnInventoryPDF";
             btnInventoryPDF.Size = new Size(75, 72);
             btnInventoryPDF.TabIndex = 3;
@@ -75,17 +78,39 @@
             btnInventoryPDF.UseVisualStyleBackColor = true;
             btnInventoryPDF.Click += button1_Click;
             // 
+            // dgvInventory
+            // 
+            dgvInventory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvInventory.Location = new Point(106, 12);
+            dgvInventory.Name = "dgvInventory";
+            dgvInventory.RowTemplate.Height = 25;
+            dgvInventory.Size = new Size(682, 348);
+            dgvInventory.TabIndex = 4;
+            // 
+            // btnCommit
+            // 
+            btnCommit.Location = new Point(713, 366);
+            btnCommit.Name = "btnCommit";
+            btnCommit.Size = new Size(75, 23);
+            btnCommit.TabIndex = 5;
+            btnCommit.Text = "Commit";
+            btnCommit.UseVisualStyleBackColor = true;
+            btnCommit.Click += btnCommit_Click;
+            // 
             // frmInventory
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 399);
+            Controls.Add(btnCommit);
+            Controls.Add(dgvInventory);
             Controls.Add(btnInventoryPDF);
             Controls.Add(btnAllItemsExcel);
             Controls.Add(btnPDFAllItems);
             Controls.Add(btnClose);
             Name = "frmInventory";
             Text = "frmInventory";
+            ((System.ComponentModel.ISupportInitialize)dgvInventory).EndInit();
             ResumeLayout(false);
         }
 
@@ -95,5 +120,7 @@
         private Button btnPDFAllItems;
         private Button btnAllItemsExcel;
         private Button btnInventoryPDF;
+        private DataGridView dgvInventory;
+        private Button btnCommit;
     }
 }

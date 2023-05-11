@@ -8,11 +8,31 @@ using System.Threading.Tasks;
 using StockS.Logic;
 using StockS.Logic.Items;
 using Microsoft.VisualBasic;
+using System.Diagnostics;
 
 namespace StockS.Logic.Inventory
 {
     public class InventoryRepository
     {
+        public List<Inventory> GetAllInventories()
+        {
+            var list = new List<Inventory>();
+            string sql = "SELECT * FROM [Inventory]";
+            AppDatabase instance = new AppDatabase();
+            instance.Open();
+            SQLiteDataReader reader = instance.GetData(sql);
+            while (reader.Read())
+            {
+                int id = reader.GetInt32(0);
+                string date = reader.GetString(1);
+                long user = reader.GetInt32(2);
+                Inventory inventory = new Inventory(id, date, user);
+                list.Add(inventory);
+            }
+            reader.Close();
+            instance.Close();
+            return list;
+        }
         public void CreateInventory(Inventory inventory)
         {
 
@@ -99,6 +119,21 @@ namespace StockS.Logic.Inventory
         {
             ItemListpdf lista = new ItemListpdf();
             lista.generateListPdf(documentPath);
+        }
+
+        public void CreateNewInventory(Inventory inventory, List<QuantityHistory> items)
+        {
+            CreateInventory(inventory);
+            ItemRepositroy repo = new ItemRepositroy();
+            foreach(QuantityHistory item in items)
+            {
+                int old = repo.GetItemQuantity(item.IdItem);
+                repo.ChangeQuanitity(item.IdItem, item.Quantity);
+                item.Quantity = old;
+                AddQuantityHistory(item);
+                CreatePDFInventory(AppContext.BaseDirectory +"Inventory" + inventory.IdInventory, inventory.IdInventory);
+                Process.Start("explorer.exe",AppContext.BaseDirectory+"Inventory"+inventory.IdInventory+".pdf");
+            }
         }
     }
 }
