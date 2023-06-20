@@ -49,47 +49,54 @@ namespace StockS.API.Forms
         }
         private void btnCommit_Click(object sender, EventArgs e)
         {
-            // jebenti boga isusova i ovaj commbobx
-            DataGridViewRow selected = dgvBoughtItems.Rows[0];
-            string itemSelected = selected.Cells[0].Value.ToString();
-            repositroy = new ItemRepositroy();
-            List<Item> items = repositroy.GetAllItems();
-            int idItem = 0;
+            try {
+                DataGridViewRow selected = dgvBoughtItems.Rows[0];
+                string itemSelected = selected.Cells[0].Value.ToString();
+                repositroy = new ItemRepositroy();
+                List<Item> items = repositroy.GetAllItems();
+                int idItem = 0;
 
-            string comp = cBoxCompany.SelectedItem.ToString();
-            List<Company> companies = repositroy.GetAllCompanies();
-            long companyID = 0;
-            foreach (Company company in companies)
-            {
-                if (company.Name == comp) companyID = company.OIB;
-            }
-            int no = repo1.GetAllReceipts().Count() + 1;
-            long userOIB = current.OIB;
-            DateTime now = DateTime.Now;
-            repo1.AddReceipt(no, companyID, userOIB, now);
-            float quantity = 0;
-            foreach (DataGridViewRow row in dgvBoughtItems.Rows)
-            {
-                if (!row.IsNewRow)
+                string comp = cBoxCompany.SelectedItem.ToString();
+                List<Company> companies = repositroy.GetAllCompanies();
+                long companyID = 0;
+                foreach (Company company in companies)
                 {
-                    foreach (Item item in items)
-                    {
-                        // tu izbacuje compile error
-                        if (item.Name == row.Cells[0].Value.ToString()) { idItem = item.IdItem; quantity = item.Quantity; };
-
-                    }
-                    repo1.AddBoughtItem(idItem, no, int.Parse(row.Cells[1].Value.ToString()), float.Parse(row.Cells[2].Value.ToString()), quantity);
+                    if (company.Name == comp) companyID = company.OIB;
                 }
+                int no = repo1.GetAllReceipts().Count() + 1;
+                long userOIB = current.OIB;
+                DateTime now = DateTime.Now;
+                repo1.AddReceipt(no, companyID, userOIB, now);
+                float quantity = 0;
+                foreach (DataGridViewRow row in dgvBoughtItems.Rows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        foreach (Item item in items)
+                        {
+                            // tu izbacuje compile error
+                            if (item.Name == row.Cells[0].Value.ToString()) { idItem = item.IdItem; quantity = item.Quantity; };
+
+                        }
+                        repo1.AddBoughtItem(idItem, no, int.Parse(row.Cells[1].Value.ToString()), float.Parse(row.Cells[2].Value.ToString()), quantity);
+                    }
+                }
+                Close();
             }
-            Close();
+            catch(Exception ex) { MessageBox.Show(ex.Message); }
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string filename = "Receipt" + DateTime.Now.DayOfYear;
-            repo1 = new ReceiptRepository();
-            repo1.CreatePDFReceipt(filename, 2);
-            Process.Start("explorer.exe", filename + ".pdf");
+            try {
+                string filename = "Receipt" + DateTime.Now.DayOfYear;
+                repo1 = new ReceiptRepository();
+                repo1.CreatePDFReceipt(filename, 2);
+                Process.Start("explorer.exe", filename + ".pdf");
+            }
+            catch(Exception ex) { MessageBox.Show(ex.Message); }
+            
         }
     }
 }

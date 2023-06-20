@@ -13,6 +13,10 @@ namespace StockS.Logic
         {
             _connection = new SQLiteConnection("DataSource=" + patha);
         }
+        public AppDatabase(string path)
+        {
+            _connection = new SQLiteConnection("DataSource=" + path);
+        }
         public void Open() { _connection.Open(); }
         public void Close() { _connection.Close(); }
 

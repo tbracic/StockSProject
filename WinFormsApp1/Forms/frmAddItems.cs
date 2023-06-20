@@ -46,20 +46,25 @@ namespace StockS.API.Forms
             int quantity = int.Parse(txtQuantity.Text);
             int units = cBoxUnits.SelectedIndex;
             string companyName = cBoxCompany.SelectedItem.ToString();
-            List<Company> list = repositroy.GetAllCompanies();
             long companyID = 0;
-            foreach(Company company in list)
+            try 
             {
-                if(company.Name == companyName)
+                List<Company> list = repositroy.GetAllCompanies();
+                foreach (Company company in list)
                 {
-                    companyID = company.OIB;
+                    if (company.Name == companyName)
+                    {
+                        companyID = company.OIB;
+                    }
                 }
-            }
-           
-           
-                repositroy.AddNewItem(code, name, price, quantity,units,companyID);
+                repositroy.AddNewItem(code, name, price, quantity, units, companyID);
                 Close();
-            
+            }
+            catch (Exception ex) 
+            { 
+                MessageBox.Show(ex.Message); 
+                Close(); 
+            }
             
             
         }

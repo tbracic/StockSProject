@@ -41,17 +41,20 @@ namespace StockS.API.Forms
             int shift = int.Parse(cBoxShift.SelectedItem.ToString());
             repository = new ConclusionRepositroy();
             itemRepositroy = new ItemRepositroy();
-            repository.CreateNewConclusion(date, shift, user);
-            string msg = "Good";
-                
-            foreach(DataGridViewRow row in dgvSoldItems.Rows)
-            {
-                if (!row.IsNewRow) {repository.CreateNewSoldItem(itemRepositroy.GetItemID(row.Cells[0].Value.ToString()),int.Parse(row.Cells[1].Value.ToString())); }
-                else
-                    break;
+            try {
+                repository.CreateNewConclusion(date, shift, user);
+                string msg = "Good";
+
+                foreach (DataGridViewRow row in dgvSoldItems.Rows)
+                {
+                    if (!row.IsNewRow) { repository.CreateNewSoldItem(itemRepositroy.GetItemID(row.Cells[0].Value.ToString()), int.Parse(row.Cells[1].Value.ToString())); }
+                    else
+                        break;
+                }
+                MessageBox.Show(msg);
+                Close();
             }
-            MessageBox.Show(msg);
-            Close();
+            catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
     }
 }

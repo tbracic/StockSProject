@@ -32,9 +32,13 @@ namespace StockS.API.Forms
             string start =txtStart.Text;
             string end = txtEnd.Text;
             repository = new UserRepository();
-            repository.AddShift(id, start, end);
-            MessageBox.Show("");
-            Close();
+            try {
+                repository.AddShift(id, start, end);
+                MessageBox.Show("");
+                Close();
+            }
+            catch(Exception ex) { MessageBox.Show(ex.Message); }
+
         }
     }
 }

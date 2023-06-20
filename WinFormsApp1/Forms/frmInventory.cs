@@ -63,23 +63,28 @@ namespace StockS.API.Forms
         {
             repository = new InventoryRepository();
             ItemRepositroy repo1 = new ItemRepositroy();
-            Inventory inventory = new Inventory(repository.GetAllInventories().Count+1,DateTime.Now.Date.ToString(),user1.OIB);
-            List<QuantityHistory> items = new List<QuantityHistory>();
-            foreach(DataGridViewRow row in dgvInventory.Rows)
+            try
             {
-                if(row.IsNewRow)
+                Inventory inventory = new Inventory(repository.GetAllInventories().Count + 1, DateTime.Now.Date.ToString(), user1.OIB);
+                List<QuantityHistory> items = new List<QuantityHistory>();
+                foreach (DataGridViewRow row in dgvInventory.Rows)
                 {
-                    break;
+                    if (row.IsNewRow)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        QuantityHistory item = new QuantityHistory(repo1.GetItemID(row.Cells[0].Value.ToString()), inventory.IdInventory, int.Parse(row.Cells[1].Value.ToString()));
+                        items.Add(item);
+                    }
                 }
-                else
-                {
-                    QuantityHistory item = new QuantityHistory(repo1.GetItemID(row.Cells[0].Value.ToString()), inventory.IdInventory,int.Parse(row.Cells[1].Value.ToString()));
-                    items.Add(item);
-                }
+                repository.CreateNewInventory(inventory, items);
+                MessageBox.Show("Uspijeh");
+                this.Close();
             }
-            repository.CreateNewInventory(inventory,items);
-            MessageBox.Show("Uspijeh");
-            this.Close();
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
             
         }
     }

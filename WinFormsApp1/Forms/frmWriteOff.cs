@@ -44,22 +44,27 @@ namespace StockS.API.Forms
 
         private void btnCommit_Click(object sender, EventArgs e)
         {
-            int id = int.Parse(lblNO.Text);
-            string selected = cBoxItem.SelectedItem.ToString();
-            int idItem = 0;
-            items = itemrepository.GetAllItems();
-            foreach (Item item in items)
+            try
             {
-                if(item.Name == selected) { idItem = item.IdItem; }
+                int id = int.Parse(lblNO.Text);
+                string selected = cBoxItem.SelectedItem.ToString();
+                int idItem = 0;
+                items = itemrepository.GetAllItems();
+                foreach (Item item in items)
+                {
+                    if (item.Name == selected) { idItem = item.IdItem; }
+                }
+                int quantity = int.Parse(txtQuantity.Text);
+                string desc = txtDescription.Text;
+                long user = currentUser.OIB;
+                WriteOff document = new WriteOff(id, idItem, quantity, desc, user);
+                repository = new WriteOffRepository();
+                repository.AddWriteOff(document);
+                MessageBox.Show("");
+                Close();
             }
-            int quantity = int.Parse(txtQuantity.Text);
-            string desc = txtDescription.Text;
-            long user = currentUser.OIB;
-            WriteOff document = new WriteOff(id,idItem, quantity, desc,user);
-            repository = new WriteOffRepository();
-            repository.AddWriteOff(document);
-            MessageBox.Show("");
-            Close();
+            catch(Exception ex) { MessageBox.Show(ex.Message); }
+           
         }
     }
 }

@@ -33,10 +33,14 @@ namespace StockS.API.Forms
 
             string title = txtTitle.Text;
             int id = int.Parse(lblID.Text);
-            
-            repositroy.AddRole(id, title);
-            MessageBox.Show("");
-            Close();
+            try
+            {
+                repositroy.AddRole(id, title);
+                MessageBox.Show("");
+                Close();
+            }
+            catch(Exception ex) { MessageBox.Show(ex.Message); }
+
 
         }
     }

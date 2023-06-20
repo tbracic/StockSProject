@@ -45,9 +45,14 @@ namespace StockS.API.Forms
             {
                 if (role.Title == selected) { id = role.IdRole; break; }
             }
-            repository.AddUser(oib, name,surr ,adress, mail, telephone, id, pass);
-            MessageBox.Show(msg);
-            Close();
+            try
+            {
+                repository.AddUser(oib, name, surr, adress, mail, telephone, id, pass);
+                MessageBox.Show(msg);
+                Close();
+            }
+            catch(Exception ex) { MessageBox.Show(ex.Message); }
+
         }
 
         private void btnClose_Click(object sender, EventArgs e)

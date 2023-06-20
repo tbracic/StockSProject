@@ -34,9 +34,13 @@ namespace StockS.API.Forms
             int id = int.Parse(lblID.Text);
             float price1 = float.Parse(lblPrice.Text);
             float price2 = float.Parse(txtPrice.Text);
-            string msg = repositroy.ChangePrice(id, price1, price2);
-            MessageBox.Show(msg);
-            Close();
+            try
+            {
+                string msg = repositroy.ChangePrice(id, price1, price2);
+                MessageBox.Show(msg);
+                Close();
+            }
+            catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
     }
 }

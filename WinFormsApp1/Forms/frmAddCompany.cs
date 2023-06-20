@@ -28,6 +28,7 @@ namespace StockS.API.Forms
 
         private void btnCommit_Click(object sender, EventArgs e)
         {
+            
             repository = new ItemRepositroy();
             long oib = long.Parse(txtOIB.Text);
             string name = txtName.Text;
@@ -35,9 +36,13 @@ namespace StockS.API.Forms
             string telephone = txtPhone.Text;
             string email = txtMail.Text;
             string poruka = "Good";
-            repository.AddNewCompany(oib, name, adress, telephone, email);
-            MessageBox.Show(poruka);
-            Close();
+            try
+            {
+                repository.AddNewCompany(oib, name, adress, telephone, email);
+                MessageBox.Show(poruka);
+                Close();
+            }
+            catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
     }
 }
