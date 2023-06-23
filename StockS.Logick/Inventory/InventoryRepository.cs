@@ -117,7 +117,7 @@ namespace StockS.Logic.Inventory
         }
         public void CreatePDFList(string documentPath)
         {
-            ItemListpdf lista = new ItemListpdf();
+            WriteOffListpdf lista = new WriteOffListpdf();
             lista.generateListPdf(documentPath);
         }
 
@@ -131,9 +131,10 @@ namespace StockS.Logic.Inventory
                 repo.ChangeQuanitity(item.IdItem, item.Quantity);
                 item.Quantity = old;
                 AddQuantityHistory(item);
-                CreatePDFInventory(AppContext.BaseDirectory +"Inventory" + inventory.IdInventory, inventory.IdInventory);
-                Process.Start("explorer.exe",AppContext.BaseDirectory+"Inventory"+inventory.IdInventory+".pdf");
+                
             }
+            CreatePDFInventory(AppContext.BaseDirectory + "Inventory" + inventory.IdInventory, inventory.IdInventory);
+            Process.Start("explorer.exe", AppContext.BaseDirectory + "Inventory" + inventory.IdInventory + ".pdf");
         }
     }
 }

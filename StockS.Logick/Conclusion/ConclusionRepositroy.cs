@@ -64,6 +64,24 @@ namespace StockS.Logic.Conclusion
             instance.Close();
             return result;
         }
+        public List<SoldItem> GetSoldItems(int idconclusion) {
+            List<SoldItem> result=new List<SoldItem>();
+            SoldItem soldItem = null;
+            string sql = $"SELECT * FROM [SoldItem] WHERE [Conclusion] = '{idconclusion}';";
+            AppDatabase instance = new AppDatabase();
+            instance.Open();
+            SQLiteDataReader reader = instance.GetData(sql);
+            while (reader.Read())
+            {
+                int idItem = reader.GetInt32(0);
+                int quantity = reader.GetInt32(2);
+                soldItem = new SoldItem(idItem, idconclusion ,quantity);
+                result.Add(soldItem);
+            }
+            reader.Close();
+            instance.Close();
+            return result;
+        }
         public int GetNewConclusionID()
         {
             int result = GetAllConclusions().Count;

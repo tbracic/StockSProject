@@ -13,8 +13,8 @@
                    FontSize="28"
                    HorizontalAlignment="Left"
                    Margin="0,0,0,20"/>
-        
-            <Border Width="800"
+
+        <Border Width="800"
                     Height="250">
             <DataGrid Name="dgvItems"
                 Height="200"
@@ -23,111 +23,84 @@
                         
                         VerticalAlignment="Top"
                         Width="760">
-               
+
             </DataGrid>
-            </Border>
-        
+        </Border>
+
         <StackPanel Orientation="Horizontal" Height="145">
-            <Border Width="120"
-                    Height="120"
-                    Margin="10,0,0,0">
-                <Border.Background>
+            <Button Content="Add new&#x0a;item" 
+                    Click="Button_Click_3"
+                    Foreground="White"
+                    FontSize="22"
+                    Margin="45,10,10,10"
+                    Width="120" Height="120">
+                <Button.Clip>
+                    <RectangleGeometry RadiusX="10"
+                                       RadiusY="10"
+                                       Rect="0,0,120,120"/>
+                </Button.Clip>
+                <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Color="#5bc3ff" Offset="0.0"/>
                         <GradientStop Color="Black" Offset="1"/>
                     </LinearGradientBrush>
-                </Border.Background>
-                <Border.Clip>
+                </Button.Background>
+            </Button>
+
+            <Button Content="Change&#x0a;price" 
+                    Click="Button_Click_2"
+                    Foreground="White"
+                    FontSize="22"
+                    Margin="45,10,10,10"
+                    Width="120" Height="120">
+                <Button.Clip>
                     <RectangleGeometry RadiusX="10"
                                        RadiusY="10"
                                        Rect="0,0,120,120"/>
-                </Border.Clip>
-                <Grid>
-                    <StackPanel>
-                        <TextBlock Text="Add new&#x0a;item"
-                                   Foreground="White"
-                                   FontSize="22"
-                                   Margin="10,10,10,10"/>
-                    </StackPanel>
-                    
-                </Grid>
-            </Border>
-            <Border Width="120"
-                    Height="120"
-                    CornerRadius="10"
-                    Margin="45,0,0,0">
-                <Border.Background>
+                </Button.Clip>
+                <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Color="#ffc554" Offset="0.0"/>
                         <GradientStop Color="Black" Offset="1"/>
                     </LinearGradientBrush>
-                </Border.Background>
-                <Border.Clip>
+                </Button.Background>
+            </Button>
+
+            <Button Content="Add new&#x0a; company" 
+                    Click="Button_Click_1"
+                    Foreground="White"
+                    FontSize="22"
+                    Margin="45,10,10,10"
+                    Width="120" Height="120">
+                <Button.Clip>
                     <RectangleGeometry RadiusX="10"
                                        RadiusY="10"
                                        Rect="0,0,120,120"/>
-                </Border.Clip>
-                <Grid>
-                    <StackPanel>
-                        <TextBlock Text="Change&#x0a;price"
-                                   Foreground="White"
-                                   FontSize="22"
-                                   Margin="10,10,10,10"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
-            <Border Width="120"
-                    Height="120"
-                    CornerRadius="10"
-                    Margin="45,0,0,0">
-                <Border.Background>
+                </Button.Clip>
+                <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Color="#FF79FF54" Offset="0.0"/>
                         <GradientStop Color="Black" Offset="1"/>
                     </LinearGradientBrush>
-                </Border.Background>
-                <Border.Clip>
+                </Button.Background>
+            </Button>
+            <Button Content="Generate&#x0a; Item List&#x0a; as PDF" 
+                    Click="Button_Click" Width="120" Height="120"
+                    Foreground="White"
+                    FontSize="22"
+                    Margin="45,10,10,10">
+                <Button.Clip>
                     <RectangleGeometry RadiusX="10"
                                        RadiusY="10"
                                        Rect="0,0,120,120"/>
-                </Border.Clip>
-                <Grid>
-                    <StackPanel>
-                        <TextBlock Text="Add new&#x0a; company"
-                                   Foreground="White"
-                                   FontSize="22"
-                                   Margin="10,10,10,10"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
-            <Border Width="120"
-                    Height="120"
-                    CornerRadius="10"
-                    Margin="45,0,0,0">
-                <Border.Background>
+                </Button.Clip>
+                <Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Color="#FFFF5454" Offset="0.0"/>
                         <GradientStop Color="Black" Offset="1"/>
                     </LinearGradientBrush>
-                </Border.Background>
-                <Border.Clip>
-                    <RectangleGeometry RadiusX="10"
-                                       RadiusY="10"
-                                       Rect="0,0,120,120"/>
-                </Border.Clip>
-                <Grid>
-                    <StackPanel>
-                        <TextBlock Text="Generate&#x0a; Item List&#x0a; as PDF"
-                                   Foreground="White"
-                                   FontSize="22"
-                                   Margin="10,10,10,10">
-                            <TextBlock.InputBindings>
-                                <MouseBinding Command="{Binding Generatepdf}" MouseAction="LeftClick"/>
-                            </TextBlock.InputBindings>
-                        </TextBlock>
-                    </StackPanel>
-                </Grid>
-            </Border>
+                </Button.Background>
+            </Button>
         </StackPanel>
     </StackPanel>
 </UserControl>

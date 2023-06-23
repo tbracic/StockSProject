@@ -58,6 +58,30 @@ namespace StockS.Logic.Items
             instance.Close();
             return companies;
         }
+        public List<String> GetAllCompaniesNames()
+        {
+            Company company = new Company(0, null, null, null, null);
+            List<Company> companies = new List<Company>();
+            List<string> result = new List<string>();
+            string sql = "Select * from Company;";
+            AppDatabase instance = new AppDatabase();
+            instance.Open();
+            SQLiteDataReader dataReader = instance.GetData(sql);
+            while (dataReader.Read())
+            {
+                long id = dataReader.GetInt64(0);
+                string name = dataReader.GetString(1);
+                string adress = dataReader.GetString(2);
+                string telephon = dataReader.GetString(3);
+                string email = dataReader.GetString(4);
+                company = new Company(id, name, adress, telephon, email);
+                result.Add(company.Name);
+                companies.Add(company);
+            }
+            dataReader.Close();
+            instance.Close();
+            return result;
+        }
         public List<string> GetAllItemNames()
         {
             List<Item> items =GetAllItems();
@@ -83,6 +107,7 @@ namespace StockS.Logic.Items
             }
             return result;
         }
+         
         public int GetItemID(string name)
         {
             int id = 0;

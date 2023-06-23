@@ -5,7 +5,7 @@ using QuestPDF.Previewer;
 using StockS.Logic.Items;
 namespace StockS.Logic.Inventory
 {
-    public class ItemListpdf
+    public class WriteOffListpdf
     {
         public void generateListPdf(string documentPath)
         {

@@ -9,12 +9,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\StockS.Logick\StockS.Logic.csproj" />
+    <ProjectReference Include="..\WinFormsApp1\StockS.API.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CWM\Model\" />
+    <Folder Include="CWM\ViewModel\" />
+    <Folder Include="CWM\View\" />
     <Folder Include="Fonts\" />
     <Folder Include="Images\" />
-    <Folder Include="MWM\Model\" />
   </ItemGroup>
 
 </Project>
